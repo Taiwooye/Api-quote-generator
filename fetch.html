@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+      background-color: wheat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* flex-direction: column; */
+        height: 100vh;
+        margin: 0;
+    }
+    .result{
+        display: flex;
+      
+    }
+    .result-qu{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        margin: 10px;
+        height: 400px;
+        width: 300px;
+       
+    }
+   
+
+    .results{
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+        height: 400px;
+        width: 300px;
+    }
+  
+
+    .result img{
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .buttons{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    button{
+        background-color: darksalmon;
+        border: 0;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 18px;
+        padding: 10px;
+        margin: 10px;
+        width: 300px;
+    }
+    button:active{
+        transform: scale(0.98);
+    }
+    button:focus{
+        outline:none
+    }
+    #quote-result{
+        font-size: 30px;
+         background-color: rgb(8, 15, 15); 
+         justify-content: center;
+       align-items: center;
+        color: #fff;
+    }
+    #quote-author{
+        font-size: 30px;
+       
+       justify-content: center;
+       align-items: center;
+        display: flex;
+        color: #fff;
+        margin-top: 25px;
+    }
+    .k{
+        text-align: center;
+    }
+   
+    @media(max-width: 768px){
+        body{
+            flex-direction: column;
+            min-width: 100%;
+            min-height: 100vh;
+            padding-top: 30px;
+        }
+      
+    }
+</style>
+<body>
+   <div class="container">
+    <div class="result">
+
+        <div id="horse-result" class="results">
+        
+            <img src="https://picsum.photos/200/300" alt="" id="myimage">
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button id="horse">Get image</button>
+    </div>
+   </div>
+
+
+
+   <div class="container">
+     
+    <div class="result-qu">
+
+        <div class="k">
+        
+            <span  id="quote-result" ></span>
+            <span id="quote-author" >
+            </span>
+            
+        </div>
+       
+    </div>
+
+    <div class="buttons">
+        <button id="quote">Get Quote</button>
+    </div>
+   </div>
+</body>
+
+<script>
+  
+
+   const horse_result =document.getElementById('horse-result');
+
+   const quote_result =document.getElementById('quote-result');
+   const quote_title = document.getElementById('quote-author');
+
+   const horse=document.getElementById('horse');
+   const quote=document.getElementById('quote');
+
+     horse.addEventListener('click', getRamdom);
+     quote.addEventListener('click',randomquote )
+
+     function getRamdom() {
+       
+        document.querySelector("img").src = "https://picsum.photos/200/300" + '?' + Math.random();
+      
+     }
+
+
+
+     function randomquote() {
+        fetch('https://type.fit/api/quotes')
+        .then(res => res.json())
+        .then((data) =>{
+           
+             
+                   let getid  = Math.floor(Math.random() * 1000);
+         
+            console.log(data[getid])
+            //let Author  = Math.floor(Math.random() * 1000);
+            quote_result.innerHTML=`${data[getid].text} `;
+            quote_title.innerHTML=`${data[getid].author} `;
+           
+           
+        })
+     }
+
+</script>
+</html>
